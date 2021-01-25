@@ -1,4 +1,4 @@
-package com.rafaelsousa.algafood.jpa;
+package com.rafaelsousa.algafood.jpa.cozinha;
 
 import com.rafaelsousa.algafood.AlgafoodApiApplication;
 import com.rafaelsousa.algafood.domain.model.Cozinha;
@@ -7,7 +7,9 @@ import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
-public class BuscaCozinhaMain {
+import java.util.Arrays;
+
+public class CadastroCozinhaMain {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext applicationContext = new SpringApplicationBuilder(AlgafoodApiApplication.class)
@@ -15,9 +17,12 @@ public class BuscaCozinhaMain {
                 .run(args);
 
         CozinhaRepository cozinhaRepository = applicationContext.getBean(CozinhaRepository.class);
+        Cozinha japonesa  = new Cozinha("Japonesa");
+        Cozinha brasileira = new Cozinha("Brasileira");
+        Cozinha c1 = cozinhaRepository.salvar(japonesa);
+        Cozinha c2 = cozinhaRepository.salvar(brasileira);
 
-        Cozinha cozinha = cozinhaRepository.buscar(1L);
-        System.out.printf("%d - %s\n", cozinha.getId(), cozinha.getNome());
+        Arrays.asList(c1, c2).forEach(cozinha -> System.out.printf("%d - %s\n", cozinha.getId(), cozinha.getNome()));
     }
 
 }

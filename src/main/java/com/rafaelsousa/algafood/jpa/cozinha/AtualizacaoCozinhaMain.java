@@ -1,4 +1,4 @@
-package com.rafaelsousa.algafood.jpa;
+package com.rafaelsousa.algafood.jpa.cozinha;
 
 import com.rafaelsousa.algafood.AlgafoodApiApplication;
 import com.rafaelsousa.algafood.domain.model.Cozinha;

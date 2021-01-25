@@ -1,4 +1,4 @@
-package com.rafaelsousa.algafood.jpa;
+package com.rafaelsousa.algafood.jpa.cozinha;
 
 import com.rafaelsousa.algafood.AlgafoodApiApplication;
 import com.rafaelsousa.algafood.domain.model.Cozinha;
@@ -7,9 +7,7 @@ import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import java.util.List;
-
-public class ExclusaoCozinhaMain {
+public class BuscaCozinhaMain {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext applicationContext = new SpringApplicationBuilder(AlgafoodApiApplication.class)
@@ -18,10 +16,8 @@ public class ExclusaoCozinhaMain {
 
         CozinhaRepository cozinhaRepository = applicationContext.getBean(CozinhaRepository.class);
 
-        cozinhaRepository.remover(1L);
-
-        List<Cozinha> cozinhas = cozinhaRepository.listar();
-        cozinhas.forEach(c -> System.out.printf("%d - %s\n", c.getId(), c.getNome()));
+        Cozinha cozinha = cozinhaRepository.buscar(1L);
+        System.out.printf("%d - %s\n", cozinha.getId(), cozinha.getNome());
     }
 
 }

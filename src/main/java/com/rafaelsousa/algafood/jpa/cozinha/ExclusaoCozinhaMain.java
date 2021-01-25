@@ -1,4 +1,4 @@
-package com.rafaelsousa.algafood.jpa;
+package com.rafaelsousa.algafood.jpa.cozinha;
 
 import com.rafaelsousa.algafood.AlgafoodApiApplication;
 import com.rafaelsousa.algafood.domain.model.Cozinha;
@@ -9,7 +9,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 import java.util.List;
 
-public class ConsultaCozinhaMain {
+public class ExclusaoCozinhaMain {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext applicationContext = new SpringApplicationBuilder(AlgafoodApiApplication.class)
@@ -18,8 +18,10 @@ public class ConsultaCozinhaMain {
 
         CozinhaRepository cozinhaRepository = applicationContext.getBean(CozinhaRepository.class);
 
+        cozinhaRepository.remover(1L);
+
         List<Cozinha> cozinhas = cozinhaRepository.listar();
-        cozinhas.forEach(c -> System.out.println(c.getNome()));
+        cozinhas.forEach(c -> System.out.printf("%d - %s\n", c.getId(), c.getNome()));
     }
 
 }
