@@ -6,9 +6,7 @@ import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import java.util.Arrays;
-
-public class CadastroCozinhaMain {
+public class BuscaCozinhaMain {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext applicationContext = new SpringApplicationBuilder(AlgafoodApiApplication.class)
@@ -16,13 +14,10 @@ public class CadastroCozinhaMain {
                 .run(args);
 
         CadastroCozinha cadastroCozinha = applicationContext.getBean(CadastroCozinha.class);
-        Cozinha japonesa  = new Cozinha("Japonesa");
-        Cozinha brasileira = new Cozinha("Brasileira");
-        Cozinha c1 = cadastroCozinha.salvar(japonesa);
-        Cozinha c2 = cadastroCozinha.salvar(brasileira);
 
-//        List<Cozinha> cozinhas = cadastroCozinha.listar();
-        Arrays.asList(c1, c2).forEach(cozinha -> System.out.printf("%d - %s\n", cozinha.getId(), cozinha.getNome()));
+        Cozinha cozinha = new Cozinha(1L, "Árabe");
+        cadastroCozinha.salvar(cozinha);
+        System.out.printf("%d - %s\n", cozinha.getId(), cozinha.getNome());
     }
 
 }
