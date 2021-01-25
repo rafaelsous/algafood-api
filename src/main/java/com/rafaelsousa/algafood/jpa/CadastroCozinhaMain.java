@@ -2,6 +2,7 @@ package com.rafaelsousa.algafood.jpa;
 
 import com.rafaelsousa.algafood.AlgafoodApiApplication;
 import com.rafaelsousa.algafood.domain.model.Cozinha;
+import com.rafaelsousa.algafood.domain.repository.CozinhaRepository;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -15,13 +16,14 @@ public class CadastroCozinhaMain {
                 .web(WebApplicationType.NONE)
                 .run(args);
 
-        CadastroCozinha cadastroCozinha = applicationContext.getBean(CadastroCozinha.class);
+        CozinhaRepository cadastroCozinha = applicationContext.getBean(CozinhaRepository.class);
         Cozinha japonesa  = new Cozinha("Japonesa");
         Cozinha brasileira = new Cozinha("Brasileira");
         Cozinha c1 = cadastroCozinha.salvar(japonesa);
         Cozinha c2 = cadastroCozinha.salvar(brasileira);
 
-//        List<Cozinha> cozinhas = cadastroCozinha.listar();
+        System.out.println(c1.equals(c1));
+
         Arrays.asList(c1, c2).forEach(cozinha -> System.out.printf("%d - %s\n", cozinha.getId(), cozinha.getNome()));
     }
 

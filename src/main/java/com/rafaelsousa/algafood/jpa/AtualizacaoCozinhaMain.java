@@ -2,6 +2,7 @@ package com.rafaelsousa.algafood.jpa;
 
 import com.rafaelsousa.algafood.AlgafoodApiApplication;
 import com.rafaelsousa.algafood.domain.model.Cozinha;
+import com.rafaelsousa.algafood.domain.repository.CozinhaRepository;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -13,9 +14,10 @@ public class AtualizacaoCozinhaMain {
                 .web(WebApplicationType.NONE)
                 .run(args);
 
-        CadastroCozinha cadastroCozinha = applicationContext.getBean(CadastroCozinha.class);
+        CozinhaRepository cozinhaRepository = applicationContext.getBean(CozinhaRepository.class);
 
-        Cozinha cozinha = cadastroCozinha.buscar(2L);
+        Cozinha cozinha = new Cozinha(1L, "Árabe");
+        cozinha = cozinhaRepository.salvar(cozinha);
         System.out.printf("%d - %s\n", cozinha.getId(), cozinha.getNome());
     }
 
