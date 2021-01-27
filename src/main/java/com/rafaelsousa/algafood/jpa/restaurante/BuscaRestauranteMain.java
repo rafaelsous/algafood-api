@@ -25,9 +25,9 @@ public class BuscaRestauranteMain {
         List<Restaurante> restaurantes = restauranteRepository.listar();
 
         for (Restaurante r : restaurantes) {
-            System.out.printf("%d - %s - %s - %s - %s - %s - %s\n"
+            System.out.printf("%d - %s - %s - %s - %s - %s - %s - %s\n"
                     , r.getId(), r.getNome(), valorMonetarioFormatado(r.getTaxaFrete()), r.getAtivo() ? "ATIVO" : "INATIVO", r.getAberto() ? "ABERTO" : "FECHADO"
-                    , dataFormatada(r.getDataCadastro()), dataFormatada(r.getDataAtualizacao()));
+                    , dataFormatada(r.getDataCadastro()), dataFormatada(r.getDataAtualizacao()), r.getCozinha().getNome());
         }
     }
 

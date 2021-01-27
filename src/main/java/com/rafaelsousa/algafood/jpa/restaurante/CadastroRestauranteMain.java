@@ -28,9 +28,9 @@ public class CadastroRestauranteMain {
         Restaurante r1 = restauranteRepository.salvar(bonnaBoca);
         Restaurante r2 = restauranteRepository.salvar(mammaMia);
 
-        Arrays.asList(r1, r2).forEach(r -> System.out.printf("%d - %s - %s - %s - %s - %s - %s\n"
+        Arrays.asList(r1, r2).forEach(r -> System.out.printf("%d - %s - %s - %s - %s - %s - %s - %s\n"
                 , r.getId(), r.getNome(), valorMonetarioFormatado(r.getTaxaFrete()), r.getAtivo() ? "ATIVO" : "INATIVO", r.getAberto() ? "ABERTO" : "FECHADO"
-                , dataFormatada(r.getDataCadastro()), dataFormatada(r.getDataAtualizacao())));
+                , dataFormatada(r.getDataCadastro()), dataFormatada(r.getDataAtualizacao()), r.getCozinha().getNome()));
     }
 
 }

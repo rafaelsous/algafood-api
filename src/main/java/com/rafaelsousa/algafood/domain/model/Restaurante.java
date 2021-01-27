@@ -1,5 +1,6 @@
 package com.rafaelsousa.algafood.domain.model;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,19 +8,18 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Getter @Setter
 @NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @DynamicUpdate
 @Entity
 public class Restaurante {
 
+    @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -40,6 +40,9 @@ public class Restaurante {
 //    @Column(name = "data_atualizacao")
     @UpdateTimestamp
     private LocalDateTime dataAtualizacao;
+
+    @ManyToOne
+    private Cozinha cozinha;
 
     public Restaurante(String nome, BigDecimal taxaFrete, Boolean ativo, Boolean aberto) {
         this.nome = nome;
