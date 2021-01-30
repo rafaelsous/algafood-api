@@ -35,6 +35,8 @@ public class CadastroRestauranteService {
             throw new EntidadeNaoEncontradaException(String.format("Cozinha com o código %d não existe", cozinhaId));
         }
 
+        restaurante.setCozinha(cozinha);
+
         return restauranteRepository.salvar(restaurante);
     }
 
