@@ -46,7 +46,8 @@ public class CozinhaController {
 
     @PostMapping
     public ResponseEntity<Cozinha> adicionar(@RequestBody Cozinha cozinha) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(cadastroCozinha.salvar(cozinha));
+        Cozinha novaCozinha = cadastroCozinha.salvar(cozinha);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novaCozinha);
     }
 
     @PutMapping("/{id}")
@@ -55,9 +56,9 @@ public class CozinhaController {
 
         if (Objects.nonNull(cozinhaEncontrada)) {
             BeanUtils.copyProperties(cozinha, cozinhaEncontrada, "id");
-            cozinhaEncontrada = cadastroCozinha.salvar(cozinhaEncontrada);
+            Cozinha cozinhaAtualizada = cadastroCozinha.salvar(cozinhaEncontrada);
 
-            return ResponseEntity.ok(cozinhaEncontrada);
+            return ResponseEntity.ok(cozinhaAtualizada);
         }
 
         return ResponseEntity.notFound().build();

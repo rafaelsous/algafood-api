@@ -1,7 +1,7 @@
 package com.rafaelsousa.algafood.infrastructure.repository;
 
-import com.rafaelsousa.algafood.domain.model.Restaurante;
-import com.rafaelsousa.algafood.domain.repository.RestauranteRepository;
+import com.rafaelsousa.algafood.domain.model.Cidade;
+import com.rafaelsousa.algafood.domain.repository.CidadeRepository;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,36 +12,36 @@ import java.util.List;
 import java.util.Objects;
 
 @Repository
-public class RestauranteRepositoryImpl implements RestauranteRepository {
+public class CidadeRepositoryImpl implements CidadeRepository {
 
     @PersistenceContext
     private EntityManager manager;
 
     @Override
-    public List<Restaurante> listar() {
-        return manager.createQuery("from Restaurante", Restaurante.class).getResultList();
+    public List<Cidade> listar() {
+        return manager.createQuery("from Cidade", Cidade.class).getResultList();
     }
 
     @Transactional
     @Override
-    public Restaurante salvar(Restaurante restaurante) {
-        return manager.merge(restaurante);
+    public Cidade salvar(Cidade cidade) {
+        return manager.merge(cidade);
     }
 
     @Override
-    public Restaurante buscar(Long id) {
-        return manager.find(Restaurante.class, id);
+    public Cidade buscar(Long id) {
+        return manager.find(Cidade.class, id);
     }
 
     @Transactional
     @Override
     public void remover(Long id) {
-        Restaurante restaurante = buscar(id);
+        Cidade cidade = buscar(id);
 
-        if (Objects.isNull(restaurante)) {
+        if (Objects.isNull(cidade)) {
             throw new EmptyResultDataAccessException(1);
         }
 
-        manager.remove(restaurante);
+        manager.remove(cidade);
     }
 }

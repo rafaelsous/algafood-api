@@ -72,4 +72,13 @@ public class RestauranteController {
         return ResponseEntity.notFound().build();
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> remover(@PathVariable Long id) {
+        try {
+            cadastroRestaurante.excluir(id);
+            return ResponseEntity.noContent().build();
+        } catch (EntidadeNaoEncontradaException ex) {
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }
+    }
 }
