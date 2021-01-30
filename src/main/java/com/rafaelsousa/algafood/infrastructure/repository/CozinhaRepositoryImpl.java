@@ -2,12 +2,14 @@ package com.rafaelsousa.algafood.infrastructure.repository;
 
 import com.rafaelsousa.algafood.domain.model.Cozinha;
 import com.rafaelsousa.algafood.domain.repository.CozinhaRepository;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Objects;
 
 @Repository
 public class CozinhaRepositoryImpl implements CozinhaRepository {
@@ -17,7 +19,7 @@ public class CozinhaRepositoryImpl implements CozinhaRepository {
 
     @Override
     public List<Cozinha> listar() {
-        return manager.createQuery("from Cozinha", Cozinha.class).getResultList();
+        return manager.createQuery("from Cozinha c", Cozinha.class).getResultList();
     }
 
     @Override
@@ -35,6 +37,11 @@ public class CozinhaRepositoryImpl implements CozinhaRepository {
     @Override
     public void remover(Long id) {
         Cozinha cozinha = buscar(id);
+
+        if (Objects.isNull(cozinha)) {
+            throw new EmptyResultDataAccessException(1);
+        }
+
         manager.remove(cozinha);
     }
 }
