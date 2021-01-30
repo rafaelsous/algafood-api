@@ -13,8 +13,12 @@ import java.util.List;
 @RequestMapping("/estados")
 public class EstadoController {
 
+    private final EstadoRepository estadoRepository;
+
     @Autowired
-    private EstadoRepository estadoRepository;
+    public EstadoController(EstadoRepository estadoRepository) {
+        this.estadoRepository = estadoRepository;
+    }
 
     @GetMapping
     public List<Estado> listar() {
