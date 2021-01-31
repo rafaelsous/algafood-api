@@ -20,17 +20,16 @@ public class CadastroEstadoService {
     }
 
     public Estado salvar(Estado estado) {
-        return estadoRepository.salvar(estado);
+        return estadoRepository.save(estado);
     }
 
     public void excluir(Long id) {
         try {
-            estadoRepository.remover(id);
+            estadoRepository.deleteById(id);
         } catch (DataIntegrityViolationException ex) {
             throw new EntidadeEmUsoException(String.format("Estado de código %d não pode ser removida, pois está em uso.", id));
         } catch (EmptyResultDataAccessException ex) {
             throw new EntidadeNaoEncontradaException(String.format("Não existe um cadastro de estado com o código %d.", id));
         }
     }
-
 }
