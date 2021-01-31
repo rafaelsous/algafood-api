@@ -8,9 +8,9 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
-public interface RestauranteRepository extends JpaRepository<Restaurante, Long> {
+public interface RestauranteRepository extends JpaRepository<Restaurante, Long>, RestauranteRepositoryQueries {
 
-    List<Restaurante> findByTaxaFreteBetween(BigDecimal taxaInicial, BigDecimal taxaFinal);
+    List<Restaurante> findByTaxaFreteBetween(BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal);
 
 //    @Query(value = "FROM Restaurante res WHERE nome LIKE %:nome% AND res.cozinha.id = :cozinhaId")
     List<Restaurante> buscarPorNomeECozinhaId(String nome, Long cozinhaId);
