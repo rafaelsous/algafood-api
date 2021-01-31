@@ -12,16 +12,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class CadastroCozinhaService {
 
+    private final CozinhaRepository cozinhaRepository;
+
     @Autowired
-    private CozinhaRepository cozinhaRepository;
+    public CadastroCozinhaService(CozinhaRepository cozinhaRepository) {
+        this.cozinhaRepository = cozinhaRepository;
+    }
 
     public Cozinha salvar(Cozinha cozinha) {
-        return cozinhaRepository.salvar(cozinha);
+        return cozinhaRepository.save(cozinha);
     }
 
     public void excluir(Long id) {
         try {
-            cozinhaRepository.remover(id);
+            cozinhaRepository.deleteById(id);
         } catch (DataIntegrityViolationException ex) {
             throw new EntidadeEmUsoException(String.format("Cozinha de código %d não pode ser removida, pois está em uso.", id));
         } catch (EmptyResultDataAccessException ex) {

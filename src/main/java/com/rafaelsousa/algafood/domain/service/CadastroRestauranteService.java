@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
-
 @Service
 public class CadastroRestauranteService {
 
@@ -26,11 +24,8 @@ public class CadastroRestauranteService {
     public Restaurante salvar(Restaurante restaurante) {
         Long cozinhaId = restaurante.getCozinha().getId();
 
-        Cozinha cozinha = cozinhaRepository.buscar(cozinhaId);
-
-        if (Objects.isNull(cozinha)) {
-            throw new EntidadeNaoEncontradaException(String.format("Cozinha com o código %d não existe", cozinhaId));
-        }
+        Cozinha cozinha = cozinhaRepository.findById(cozinhaId)
+                .orElseThrow(() -> new EntidadeNaoEncontradaException(String.format("Cozinha com o código %d não existe", cozinhaId)));
 
         restaurante.setCozinha(cozinha);
 
