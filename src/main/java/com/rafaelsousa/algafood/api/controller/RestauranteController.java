@@ -1,5 +1,6 @@
 package com.rafaelsousa.algafood.api.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rafaelsousa.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.rafaelsousa.algafood.domain.model.Restaurante;
 import com.rafaelsousa.algafood.domain.repository.RestauranteRepository;
@@ -8,9 +9,12 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @RestController
@@ -80,5 +84,35 @@ public class RestauranteController {
         } catch (EntidadeNaoEncontradaException ex) {
             return ResponseEntity.badRequest().body(ex.getMessage());
         }
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> atualizarParcial(@PathVariable Long id, @RequestBody Map<String, Object> campos) {
+        Restaurante restauranteAtual = restauranteRepository.buscar(id);
+
+        if (Objects.isNull(restauranteAtual)) {
+            return ResponseEntity.notFound().build();
+        }
+
+        merge(campos, restauranteAtual);
+
+        return atualizar(id, restauranteAtual);
+    }
+
+    private void merge(Map<String, Object> dadosOrigem, Restaurante restauranteDestino) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        Restaurante restauranteOrigem = objectMapper.convertValue(dadosOrigem, Restaurante.class);
+
+        dadosOrigem.forEach((nomeAtributo, valorAtributo) -> {
+            // Retorna uma instância de um campo baseado no nome do atributo
+            Field atributo = ReflectionUtils.findField(Restaurante.class, nomeAtributo);
+            Objects.requireNonNull(atributo).setAccessible(true);
+
+            Object novoValor = ReflectionUtils.getField(atributo, restauranteOrigem);
+
+            System.out.println(nomeAtributo + " = " + valorAtributo + " = " + novoValor);
+
+            ReflectionUtils.setField(atributo, restauranteDestino, novoValor);
+        });
     }
 }
