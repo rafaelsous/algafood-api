@@ -19,7 +19,14 @@ public class CozinhaRepositoryImpl implements CozinhaRepository {
 
     @Override
     public List<Cozinha> listar() {
-        return manager.createQuery("from Cozinha c", Cozinha.class).getResultList();
+        return manager.createQuery("FROM Cozinha c", Cozinha.class).getResultList();
+    }
+
+    @Override
+    public List<Cozinha> consultarPorNome(String nome) {
+        return manager.createQuery("FROM Cozinha c WHERE c.nome like :nome", Cozinha.class)
+                .setParameter("nome", "%" + nome + "%")
+                .getResultList();
     }
 
     @Override
