@@ -32,6 +32,11 @@ public class TesteController {
         return cozinhaRepository.findTodasByNomeContaining(nome);
     }
 
+    @GetMapping("/cozinhas/primeira")
+    public Optional<Cozinha> cozinhaPrimeira() {
+        return cozinhaRepository.buscarPrimeiro();
+    }
+
     @GetMapping("/cozinhas/unica-por-nome")
     public Optional<Cozinha> cozinhasUnicaPorNome(String nome) {
         return cozinhaRepository.findByNome(nome);
@@ -55,5 +60,10 @@ public class TesteController {
     @GetMapping("/restaurantes/com-frete-gratis")
     public List restaurantesComFreteGratis(String nome) {
         return restauranteRepository.findComFreteGratis(nome);
+    }
+
+    @GetMapping("/restaurantes/primeiro")
+    public Optional<Restaurante> restaurantePrimeiro() {
+        return restauranteRepository.buscarPrimeiro();
     }
 }
