@@ -16,3 +16,11 @@ INSERT INTO algafood.cidade(nome, estado_id) VALUES ('São Luís', 1);
 INSERT INTO algafood.cidade(nome, estado_id) VALUES ('Recife', 2);
 INSERT INTO algafood.cidade(nome, estado_id) VALUES ('Palmas', 3);
 INSERT INTO algafood.cidade(nome, estado_id) VALUES ('Araguaína', 3);
+
+-- INSERT SOME PAYMENT METHODS
+INSERT INTO algafood.forma_pagamento (id, descricao) VALUES (1, 'Cartão de Crédito');
+INSERT INTO algafood.forma_pagamento (id, descricao) VALUES (2, 'Cartão de Débito');
+INSERT INTO algafood.forma_pagamento (id, descricao) VALUES (3, 'Dinheiro');
+
+-- INSERT SOME RELATIONSHIPS BETWEEN RESTAURANT AND PAYMENT METHOD
+INSERT INTO algafood.restaurante_forma_pagamento (restaurante_id, forma_pagamento_id) VALUES (1, 1), (1, 2), (1, 3), (2, 3);
