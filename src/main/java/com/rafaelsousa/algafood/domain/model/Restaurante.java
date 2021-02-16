@@ -32,12 +32,14 @@ public class Restaurante {
 
     private Boolean aberto;
 
-//    @Column(name = "data_cadastro")
+    @JsonIgnore
     @CreationTimestamp
+    @Column(nullable = false, columnDefinition = "datetime")
     private LocalDateTime dataCadastro;
 
-//    @Column(name = "data_atualizacao")
+    @JsonIgnore
     @UpdateTimestamp
+    @Column(nullable = false, columnDefinition = "datetime")
     private LocalDateTime dataAtualizacao;
 
     @ManyToOne

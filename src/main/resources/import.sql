@@ -14,8 +14,8 @@ INSERT INTO algafood.cidade(id, nome, estado_id) VALUES (3, 'Palmas', 3);
 INSERT INTO algafood.cidade(id, nome, estado_id) VALUES (4, 'Araguaína', 3);
 
 -- INSERT SOME RESTAURANTS
-INSERT INTO algafood.restaurante (id, nome, taxa_frete, ativo, aberto, data_cadastro, data_atualizacao, cozinha_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_complemento, endereco_bairro, endereco_cidade_id) VALUES (1, 'Panela de Barro', 7.89, TRUE, TRUE, NOW(), NOW(), 1, '77023526', 'Quadra 1004 Sul Alameda 14', '144', 'No centro da quadra', 'Plano Diretor Norte', 3);
-INSERT INTO algafood.restaurante (id, nome, taxa_frete, ativo, aberto, data_cadastro, data_atualizacao, cozinha_id) VALUES (2, 'Comida Caseira', 8.19, TRUE, FALSE, NOW(), NOW(), 2);
+INSERT INTO algafood.restaurante (id, nome, taxa_frete, ativo, aberto, data_cadastro, data_atualizacao, cozinha_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_complemento, endereco_bairro, endereco_cidade_id) VALUES (1, 'Panela de Barro', 7.89, TRUE, TRUE, UTC_TIMESTAMP(), UTC_TIMESTAMP(), 1, '77023526', 'Quadra 1004 Sul Alameda 14', '144', 'No centro da quadra', 'Plano Diretor Norte', 3);
+INSERT INTO algafood.restaurante (id, nome, taxa_frete, ativo, aberto, data_cadastro, data_atualizacao, cozinha_id) VALUES (2, 'Comida Caseira', 8.19, TRUE, FALSE, UTC_TIMESTAMP(), UTC_TIMESTAMP(), 2);
 
 -- INSERT SOME PAYMENT METHODS
 INSERT INTO algafood.forma_pagamento (id, descricao) VALUES (1, 'Cartão de Crédito');
