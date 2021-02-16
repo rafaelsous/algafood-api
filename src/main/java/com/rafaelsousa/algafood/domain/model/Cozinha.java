@@ -1,19 +1,18 @@
 package com.rafaelsousa.algafood.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
-@Getter @Setter
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 public class Cozinha {
 
-    @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,7 +21,7 @@ public class Cozinha {
 
     @JsonIgnore
     @OneToMany(mappedBy = "cozinha")
-    private List<Restaurante> restaurantes;
+    private List<Restaurante> restaurantes = new ArrayList<>();
 
     public Cozinha(String nome) {
         this.nome = nome;

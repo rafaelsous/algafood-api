@@ -1,7 +1,8 @@
 package com.rafaelsousa.algafood.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -12,9 +13,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
-//@Getter @Setter
 @NoArgsConstructor
-//@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @DynamicUpdate
 @Entity
 public class Restaurante {
@@ -50,6 +49,10 @@ public class Restaurante {
             joinColumns = @JoinColumn(name = "restaurante_id"),
             inverseJoinColumns = @JoinColumn(name = "forma_pagamento_id"))
     private List<FormaPagamento> formasPagamento;
+
+    @JsonIgnore
+    @Embedded
+    private Endereco endereco;
 
     public Restaurante(String nome, BigDecimal taxaFrete, Boolean ativo, Boolean aberto) {
         this.nome = nome;
