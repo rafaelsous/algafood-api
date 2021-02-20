@@ -28,7 +28,7 @@ INSERT INTO algafood.forma_pagamento (id, descricao) VALUES (2, 'Cartão de Déb
 INSERT INTO algafood.forma_pagamento (id, descricao) VALUES (3, 'Dinheiro');
 
 -- INSERT SOME RELATIONSHIPS BETWEEN RESTAURANT AND PAYMENT METHOD
-INSERT INTO algafood.restaurante_forma_pagamento (restaurante_id, forma_pagamento_id) VALUES (1, 1), (1, 2), (1, 3), (2, 3), (3, 2), (3, 3), (4, 1), (4, 2), (5, 1), (5, 2), (6, 3);
+INSERT INTO algafood.restaurante_forma_pagamento (restaurante_id, forma_pagamento_id) VALUES (1, 1), (1, 2), (1, 3), (2, 3), (3, 2), (3, 3), (4, 1), (4, 2), (5, 1), (5, 2), (5, 3);
 
 -- INSERT SOME PRODUCTS
 INSERT INTO produto (nome, descricao, preco, ativo, restaurante_id) VALUES ('Porco com molho agridoce', 'Deliciosa carne suína ao molho especial', 78.90, 1, 1);
