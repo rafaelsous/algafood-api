@@ -3,6 +3,10 @@ spring:
     url: jdbc:mysql://localhost/algafood?createDatabaseIfNotExist=true&serverTimezone=UTC
     username: admin
     password: Rte@1207
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 3
+      idle-timeout: 10000
   jpa:
     generate-ddl: true
     hibernate:
