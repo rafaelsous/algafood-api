@@ -77,6 +77,14 @@
             <plugin>
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
+                <configuration>
+                    <url>jdbc:mysql://localhost/algafood</url>
+                    <user>root</user>
+                    <password>Rte@1207</password>
+                    <schemas>
+                        <schema>algafood</schema>
+                    </schemas>
+                </configuration>
             </plugin>
         </plugins>
     </build>

@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface RestauranteRepository extends CustomJpaRepository<Restaurante, Long>, RestauranteRepositoryQueries, JpaSpecificationExecutor<Restaurante> {
 
-    @Query(value = "SELECT DISTINCT res FROM Restaurante res JOIN FETCH res.cozinha LEFT JOIN FETCH res.formasPagamento")
+    @Query(value = "SELECT DISTINCT res FROM Restaurante res JOIN FETCH res.cozinha")
     List<Restaurante> findAll();
 
     List<Restaurante> findByTaxaFreteBetween(BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal);
