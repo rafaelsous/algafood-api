@@ -6,7 +6,6 @@ import com.rafaelsousa.algafood.domain.service.CadastroCozinhaService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,9 +35,9 @@ public class CozinhaController {
     }
 
     @PostMapping
-    public ResponseEntity<Cozinha> adicionar(@RequestBody Cozinha cozinha) {
-        Cozinha novaCozinha = cadastroCozinha.salvar(cozinha);
-        return ResponseEntity.status(HttpStatus.CREATED).body(novaCozinha);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Cozinha adicionar(@RequestBody Cozinha cozinha) {
+        return cadastroCozinha.salvar(cozinha);
     }
 
     @PutMapping("/{id}")

@@ -12,20 +12,25 @@ import org.springframework.stereotype.Service;
 @Service
 public class CadastroCidadeService {
 
+    public static final String MSG_CIDADE_NAO_ENCONTRADA = "Não existe um cadastro de cidade com o código %d.";
+    public static final String MSG_ESTADO_NAO_ENCONTRADO = "Estado com o código %d não existe";
+
     private final CidadeRepository cidadeRepository;
     private final EstadoRepository estadoRepository;
 
+    private final CadastroEstadoService cadastroEstado;
+
     @Autowired
-    public CadastroCidadeService(CidadeRepository cidadeRepository, EstadoRepository estadoRepository) {
+    public CadastroCidadeService(CidadeRepository cidadeRepository, EstadoRepository estadoRepository, CadastroEstadoService cadastroEstado) {
         this.cidadeRepository = cidadeRepository;
         this.estadoRepository = estadoRepository;
+        this.cadastroEstado = cadastroEstado;
     }
 
     public Cidade salvar(Cidade cidade) {
         Long estadoId = cidade.getEstado().getId();
 
-        Estado estado = estadoRepository.findById(estadoId)
-                .orElseThrow(() -> new EntidadeNaoEncontradaException(String.format("Estado com o código %d não existe", estadoId)));
+        Estado estado = cadastroEstado.buscarOuFalhar(estadoId);
 
         cidade.setEstado(estado);
 
@@ -36,8 +41,11 @@ public class CadastroCidadeService {
         try {
             cidadeRepository.deleteById(id);
         } catch (EmptyResultDataAccessException ex) {
-            throw new EntidadeNaoEncontradaException(String.format("Não existe um cadastro de cidade com o código %d.", id));
+            throw new EntidadeNaoEncontradaException(String.format(MSG_CIDADE_NAO_ENCONTRADA, id));
         }
     }
 
+    public Cidade buscarOuFalhar(Long id) {
+        return cidadeRepository.findById(id).orElseThrow(() -> new EntidadeNaoEncontradaException(String.format(MSG_CIDADE_NAO_ENCONTRADA, id)));
+    }
 }
