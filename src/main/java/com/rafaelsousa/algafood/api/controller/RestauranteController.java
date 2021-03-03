@@ -1,6 +1,8 @@
 package com.rafaelsousa.algafood.api.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.rafaelsousa.algafood.domain.exception.EntidadeNaoEncontradaException;
+import com.rafaelsousa.algafood.domain.exception.NegocioException;
 import com.rafaelsousa.algafood.domain.model.Restaurante;
 import com.rafaelsousa.algafood.domain.repository.RestauranteRepository;
 import com.rafaelsousa.algafood.domain.service.CadastroRestauranteService;
@@ -42,7 +44,11 @@ public class RestauranteController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Restaurante adicionar(@RequestBody Restaurante restaurante) {
-        return cadastroRestaurante.salvar(restaurante);
+        try {
+            return cadastroRestaurante.salvar(restaurante);
+        } catch (EntidadeNaoEncontradaException ex) {
+            throw new NegocioException(ex.getMessage());
+        }
     }
 
     @PutMapping("/{id}")
@@ -50,7 +56,11 @@ public class RestauranteController {
         Restaurante restauranteAtual = cadastroRestaurante.buscarOuFalhar(id);
         BeanUtils.copyProperties(restaurante, restauranteAtual, "id", "dataCadastro", "formasPagamento", "endereco", "produtos");
 
-        return cadastroRestaurante.salvar(restauranteAtual);
+        try {
+            return cadastroRestaurante.salvar(restauranteAtual);
+        } catch (EntidadeNaoEncontradaException ex) {
+            throw new NegocioException(ex.getMessage());
+        }
     }
 
     @DeleteMapping("/{id}")
