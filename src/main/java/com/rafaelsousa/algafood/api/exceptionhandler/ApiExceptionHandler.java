@@ -1,5 +1,6 @@
 package com.rafaelsousa.algafood.api.exceptionhandler;
 
+import com.rafaelsousa.algafood.domain.exception.EntidadeEmUsoException;
 import com.rafaelsousa.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.rafaelsousa.algafood.domain.exception.NegocioException;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,16 @@ public class ApiExceptionHandler {
                 .build();
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(problema);
+    }
+
+    @ExceptionHandler(EntidadeEmUsoException.class)
+    public ResponseEntity<?> tratarEntidadeEmUsoException(EntidadeEmUsoException ex) {
+        Problema problema = Problema.builder()
+                .dataHora(LocalDateTime.now())
+                .mensagem(ex.getMessage())
+                .build();
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(problema);
     }
 
     @ExceptionHandler(NegocioException.class)
