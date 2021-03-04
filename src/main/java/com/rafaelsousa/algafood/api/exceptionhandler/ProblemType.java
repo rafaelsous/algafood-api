@@ -9,7 +9,8 @@ public enum ProblemType {
     ENTIDADE_ME_USO("Entidade em uso", "/entidade-em-uso"),
     REGRA_NEGOCIO("Violação de regra de negócio", "/regra-negocio"),
     MENSAGEM_ILEGIVEL("Mensagem ilegível", "/mensagem-ilegivel"),
-    FORMATO_INVALIDO("Formato inválido", "/formato-invalido");
+    FORMATO_INVALIDO("Formato inválido", "/formato-invalido"),
+    PARAMETRO_INVALIDO("Parâmetro inválido", "/parametro-invalido");
 
     private String title;
     private String uri;

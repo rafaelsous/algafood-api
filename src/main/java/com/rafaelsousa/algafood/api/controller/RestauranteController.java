@@ -15,6 +15,7 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Field;
@@ -57,7 +58,7 @@ public class RestauranteController {
     }
 
     @PutMapping("/{id}")
-    public Restaurante atualizar(@PathVariable Long id, @RequestBody Restaurante restaurante) {
+    public Restaurante atualizar(@PathVariable Long id, @RequestBody Restaurante restaurante, ServletServerHttpRequest serverHttpRequest) {
         Restaurante restauranteAtual = cadastroRestaurante.buscarOuFalhar(id);
         BeanUtils.copyProperties(restaurante, restauranteAtual, "id", "dataCadastro", "formasPagamento", "endereco", "produtos");
 
@@ -81,7 +82,7 @@ public class RestauranteController {
 
         merge(campos, restauranteAtual, serverHttpRequest);
 
-        return atualizar(id, restauranteAtual);
+        return atualizar(id, restauranteAtual, serverHttpRequest);
     }
 
     private void merge(Map<String, Object> dadosOrigem, Restaurante restauranteDestino, ServletServerHttpRequest serverHttpRequest) {
