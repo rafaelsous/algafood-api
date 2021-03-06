@@ -10,7 +10,8 @@ public enum ProblemType {
     REGRA_NEGOCIO("Violação de regra de negócio", "/regra-negocio"),
     MENSAGEM_ILEGIVEL("Mensagem ilegível", "/mensagem-ilegivel"),
     FORMATO_INVALIDO("Formato inválido", "/formato-invalido"),
-    PARAMETRO_INVALIDO("Parâmetro inválido", "/parametro-invalido");
+    PARAMETRO_INVALIDO("Parâmetro inválido", "/parametro-invalido"),
+    ERRO_NO_SISTEMA("Erro interno no servidor", "/erro-interno-servidor");
 
     private String title;
     private String uri;
