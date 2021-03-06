@@ -9,6 +9,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -47,11 +48,12 @@ public class Restaurante {
     @Column(nullable = false, columnDefinition = "datetime")
     private LocalDateTime dataAtualizacao;
 
+    @NotNull
 //    @JsonIgnore
     @JsonIgnoreProperties("hibernateLazyInitializer")
     @ManyToOne //(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
-    private Cozinha cozinha;
+    private @Valid Cozinha cozinha;
 
     @JsonIgnore
     @ManyToMany
