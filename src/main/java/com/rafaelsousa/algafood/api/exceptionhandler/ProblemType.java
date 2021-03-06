@@ -11,7 +11,8 @@ public enum ProblemType {
     MENSAGEM_ILEGIVEL("Mensagem ilegível", "/mensagem-ilegivel"),
     FORMATO_INVALIDO("Formato inválido", "/formato-invalido"),
     PARAMETRO_INVALIDO("Parâmetro inválido", "/parametro-invalido"),
-    ERRO_NO_SISTEMA("Erro interno no servidor", "/erro-interno-servidor");
+    ERRO_NO_SISTEMA("Erro interno no servidor", "/erro-interno-servidor"),
+    DADOS_INVALIDOS("Dados inválidos", "/dados-invalidos");
 
     private String title;
     private String uri;
