@@ -2,6 +2,7 @@ package com.rafaelsousa.algafood.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.rafaelsousa.algafood.Groups;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -11,6 +12,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.groups.ConvertGroup;
+import javax.validation.groups.Default;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -49,6 +52,7 @@ public class Restaurante {
     private LocalDateTime dataAtualizacao;
 
     @NotNull
+    @ConvertGroup(from = Default.class, to = Groups.CozinhaId.class)
 //    @JsonIgnore
     @JsonIgnoreProperties("hibernateLazyInitializer")
     @ManyToOne //(fetch = FetchType.LAZY)

@@ -1,10 +1,12 @@
 package com.rafaelsousa.algafood.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.rafaelsousa.algafood.Groups;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +16,12 @@ import java.util.List;
 @Entity
 public class Cozinha {
 
-    @NotNull
+    @NotNull(groups = Groups.CozinhaId.class)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     private String nome;
 
     @JsonIgnore
