@@ -13,7 +13,6 @@ import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.groups.ConvertGroup;
-import javax.validation.groups.Default;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -52,7 +51,7 @@ public class Restaurante {
     private LocalDateTime dataAtualizacao;
 
     @NotNull
-    @ConvertGroup(from = Default.class, to = Groups.CozinhaId.class)
+    @ConvertGroup(to = Groups.CozinhaId.class)
 //    @JsonIgnore
     @JsonIgnoreProperties("hibernateLazyInitializer")
     @ManyToOne //(fetch = FetchType.LAZY)
