@@ -1,6 +1,6 @@
 package com.rafaelsousa.algafood.domain.model;
 
-import com.rafaelsousa.algafood.Groups;
+import com.rafaelsousa.algafood.core.validation.Groups;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
