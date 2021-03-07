@@ -3,7 +3,7 @@ package com.rafaelsousa.algafood.domain.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.rafaelsousa.algafood.core.validation.Groups;
-import com.rafaelsousa.algafood.core.validation.Multiplo;
+import com.rafaelsousa.algafood.core.validation.RestauranteTaxaZero;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -14,12 +14,14 @@ import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 import javax.validation.groups.ConvertGroup;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@RestauranteTaxaZero(fieldValue = "taxaFrete", fieldDescription = "nome", required = "Frete Grátis")
 @Data
 @NoArgsConstructor
 @DynamicUpdate
@@ -36,9 +38,7 @@ public class Restaurante {
     private String nome;
 
     @NotNull
-//    @PositiveOrZero
-//    @TaxaFrete
-    @Multiplo(numero = 5)
+    @PositiveOrZero
 //    @Column(name = "taxa_frete")
     private BigDecimal taxaFrete;
 
