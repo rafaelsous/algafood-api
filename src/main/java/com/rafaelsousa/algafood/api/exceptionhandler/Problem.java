@@ -20,14 +20,14 @@ public class Problem {
 
     private String userMessage;
 
-    private List<Field> fields;
+    private List<Object> objects;
 
     @Builder.Default
     private LocalDateTime timestamp = LocalDateTime.now();
 
     @Getter
     @Builder
-    public static class Field {
+    public static class Object {
         private String name;
         private String userMessage;
     }
