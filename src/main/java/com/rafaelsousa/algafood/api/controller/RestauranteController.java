@@ -2,6 +2,7 @@ package com.rafaelsousa.algafood.api.controller;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.rafaelsousa.algafood.core.validation.ValidationException;
 import com.rafaelsousa.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.rafaelsousa.algafood.domain.exception.NegocioException;
 import com.rafaelsousa.algafood.domain.model.Restaurante;
@@ -14,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.util.ReflectionUtils;
+import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.validation.SmartValidator;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,13 +31,14 @@ import java.util.Objects;
 public class RestauranteController {
 
     private final RestauranteRepository restauranteRepository;
-
     private final CadastroRestauranteService cadastroRestaurante;
+    private final SmartValidator validator;
 
     @Autowired
-    public RestauranteController(RestauranteRepository restauranteRepository, CadastroRestauranteService cadastroRestaurante) {
+    public RestauranteController(RestauranteRepository restauranteRepository, CadastroRestauranteService cadastroRestaurante, SmartValidator validator) {
         this.restauranteRepository = restauranteRepository;
         this.cadastroRestaurante = cadastroRestaurante;
+        this.validator = validator;
     }
 
     @GetMapping
@@ -82,7 +86,18 @@ public class RestauranteController {
 
         merge(campos, restauranteAtual, serverHttpRequest);
 
+        validate(restauranteAtual, "restaurante");
+
         return atualizar(id, restauranteAtual);
+    }
+
+    private void validate(Restaurante restaurante, String objecName) {
+        BeanPropertyBindingResult bindingResult = new BeanPropertyBindingResult(restaurante, objecName);
+        validator.validate(restaurante, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            throw new ValidationException(bindingResult);
+        }
     }
 
     private void merge(Map<String, Object> dadosOrigem, Restaurante restauranteDestino, ServletServerHttpRequest serverHttpRequest) {
