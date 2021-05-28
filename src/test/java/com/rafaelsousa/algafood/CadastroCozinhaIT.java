@@ -1,5 +1,7 @@
 package com.rafaelsousa.algafood;
 
+import com.rafaelsousa.algafood.domain.exception.CozinhaNaoEncontradaException;
+import com.rafaelsousa.algafood.domain.exception.EntidadeEmUsoException;
 import com.rafaelsousa.algafood.domain.model.Cozinha;
 import com.rafaelsousa.algafood.domain.service.CadastroCozinhaService;
 import org.junit.jupiter.api.Test;
@@ -12,12 +14,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
-public class CadastroCozinhaIntegrationTests {
+public class CadastroCozinhaIT {
 
     private final CadastroCozinhaService cadastroCozinhaService;
 
     @Autowired
-    public CadastroCozinhaIntegrationTests(CadastroCozinhaService cadastroCozinhaService) {
+    public CadastroCozinhaIT(CadastroCozinhaService cadastroCozinhaService) {
         this.cadastroCozinhaService = cadastroCozinhaService;
     }
 
@@ -35,7 +37,7 @@ public class CadastroCozinhaIntegrationTests {
         assertThat(novaCozinha.getId()).isNotNull();
     }
 
-    @Test()
+    @Test
     public void testarCadastroCozinhaSemNome() {
         // validação
         assertThrows(ConstraintViolationException.class, () -> {
@@ -47,4 +49,13 @@ public class CadastroCozinhaIntegrationTests {
         });
     }
 
+    @Test
+    public void testarExcluirCozinhaEmUso() {
+        assertThrows(EntidadeEmUsoException.class, () -> cadastroCozinhaService.excluir(1L));
+    }
+
+    @Test
+    public void testarExcluirCozinhaInexistente() {
+        assertThrows(CozinhaNaoEncontradaException.class, () -> cadastroCozinhaService.excluir(33L));
+    }
 }
