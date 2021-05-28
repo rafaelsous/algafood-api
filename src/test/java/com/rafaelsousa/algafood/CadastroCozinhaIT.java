@@ -1,13 +1,14 @@
 package com.rafaelsousa.algafood;
 
+import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 
-import static io.restassured.RestAssured.enableLoggingOfRequestAndResponseIfValidationFails;
-import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.hasSize;
 
@@ -17,13 +18,16 @@ public class CadastroCozinhaIT {
     @LocalServerPort
     private int port;
 
+    @BeforeEach
+    public void setup() {
+        enableLoggingOfRequestAndResponseIfValidationFails();
+        RestAssured.port = port;
+        basePath = "/cozinhas";
+    }
+
     @Test
     public void testarRetorno200QuandoConsultarCozinhas() {
-        enableLoggingOfRequestAndResponseIfValidationFails();
-
         given()
-            .basePath("/cozinhas")
-            .port(port)
             .accept(ContentType.JSON)
         .when()
             .get()
@@ -33,11 +37,7 @@ public class CadastroCozinhaIT {
 
     @Test
     public void testarRetornoDe4ResultadosQuandoConsultarCozinhas() {
-        enableLoggingOfRequestAndResponseIfValidationFails();
-
         given()
-            .basePath("/cozinhas")
-            .port(port)
             .accept(ContentType.JSON)
         .when()
             .get()
