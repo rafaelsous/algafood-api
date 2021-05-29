@@ -3,6 +3,7 @@ package com.rafaelsousa.algafood;
 import com.rafaelsousa.algafood.domain.model.Cozinha;
 import com.rafaelsousa.algafood.domain.repository.CozinhaRepository;
 import com.rafaelsousa.algafood.util.DatabaseCleaner;
+import com.rafaelsousa.algafood.util.ResourcesUtil;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,6 +21,8 @@ import static org.hamcrest.Matchers.*;
 @TestPropertySource("/application-dev.yml")
 public class CadastroCozinhaIT {
 
+    private static final int COZINHA_ID_INEXISTENTE = 100;
+
     @LocalServerPort
     private int port;
 
@@ -29,6 +32,12 @@ public class CadastroCozinhaIT {
     @Autowired
     private CozinhaRepository cozinhaRepository;
 
+    private Cozinha cozinhaChinesa;
+
+    private int quantidadeCozinhasCadastradas;
+
+    private String jsonCozinhaGaucha;
+
     @BeforeEach
     public void setup() {
         enableLoggingOfRequestAndResponseIfValidationFails();
@@ -37,6 +46,8 @@ public class CadastroCozinhaIT {
 
         databaseCleaner.clearTables();
         prepararDados();
+
+        jsonCozinhaGaucha = ResourcesUtil.getContentFromResource("/json/cozinhaGaucha.json");
     }
 
     @Test
@@ -50,20 +61,19 @@ public class CadastroCozinhaIT {
     }
 
     @Test
-    public void testarRetornoDe2ResultadosQuandoConsultarCozinhas() {
+    public void testarRetornoEQuantidadeDeResultadosRetornadosQuandoConsultarCozinhas() {
         given()
             .accept(ContentType.JSON)
         .when()
             .get()
         .then()
-            .body("", hasSize(2))
-            .body("nome", hasItems("Tailandesa", "Chinesa"));
+            .body("", hasSize(quantidadeCozinhasCadastradas));
     }
 
     @Test
     public void testarCadastrarNovaCozinha() {
         given()
-                .body("{ \"nome\": \"Gaúcha\" }")
+                .body(jsonCozinhaGaucha)
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
             .when()
@@ -75,19 +85,19 @@ public class CadastroCozinhaIT {
     @Test
     public void testarRespostaEStatusAoConsultarCozinhaExistentePorId() {
         given()
-                .pathParam("cozinhaId", 2)
+                .pathParam("cozinhaId", cozinhaChinesa.getId())
                 .accept(ContentType.JSON)
             .when()
                 .get("/{cozinhaId}")
             .then()
                 .statusCode(HttpStatus.OK.value())
-                .body("nome", equalTo("Chinesa"));
+                .body("nome", equalTo(cozinhaChinesa.getNome()));
     }
 
     @Test
     public void testarRespostaComStatus404AoConsultarCozinhaInexistente() {
         given()
-                .pathParam("cozinhaId", 10)
+                .pathParam("cozinhaId", COZINHA_ID_INEXISTENTE)
                 .accept(ContentType.JSON)
             .when()
                 .get("/{cozinhaId}")
@@ -100,8 +110,10 @@ public class CadastroCozinhaIT {
         cozinha1.setNome("Tailandesa");
         cozinhaRepository.save(cozinha1);
 
-        Cozinha cozinha2 = new Cozinha();
-        cozinha2.setNome("Chinesa");
-        cozinhaRepository.save(cozinha2);
+        cozinhaChinesa = new Cozinha();
+        cozinhaChinesa.setNome("Chinesa");
+        cozinhaRepository.save(cozinhaChinesa);
+
+        quantidadeCozinhasCadastradas = (int) cozinhaRepository.count();
     }
 }
