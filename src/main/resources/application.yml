@@ -3,9 +3,28 @@ spring:
     url: jdbc:mysql://localhost/algafood?createDatabaseIfNotExist=true&serverTimezone=UTC
     username: admin
     password: Rte@1207
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 3
+      idle-timeout: 10000
   jpa:
-    generate-ddl: true
-    hibernate:
-      ddl-auto: create
+#    generate-ddl: true
+#    hibernate:
+#      ddl-auto: update
     database: mysql
     database-platform: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+  flyway:
+    locations: classpath:db/migration,classpath:db/testdata
+    enabled: true
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+      fail-on-ignored-properties: true
+  mvc:
+    throw-exception-if-no-handler-found: true
+  web:
+    resources:
+      add-mappings: false
+  profiles:
+    active: dev
