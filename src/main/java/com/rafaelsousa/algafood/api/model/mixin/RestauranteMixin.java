@@ -8,17 +8,17 @@ import com.rafaelsousa.algafood.domain.model.FormaPagamento;
 import com.rafaelsousa.algafood.domain.model.Produto;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RestauranteMixin {
 
-    @JsonIgnore
-    private LocalDateTime dataCadastro;
+//    @JsonIgnore
+    private OffsetDateTime dataCadastro;
 
-    @JsonIgnore
-    private LocalDateTime dataAtualizacao;
+//    @JsonIgnore
+    private OffsetDateTime dataAtualizacao;
 
     @JsonIgnoreProperties(value = { "hibernateLazyInitializer", "nome" }, allowGetters = true)
     private @Valid Cozinha cozinha;
