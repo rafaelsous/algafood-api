@@ -14,10 +14,10 @@ import java.util.List;
 
 public class RestauranteMixin {
 
-//    @JsonIgnore
+    @JsonIgnore
     private OffsetDateTime dataCadastro;
 
-//    @JsonIgnore
+    @JsonIgnore
     private OffsetDateTime dataAtualizacao;
 
     @JsonIgnoreProperties(value = { "hibernateLazyInitializer", "nome" }, allowGetters = true)

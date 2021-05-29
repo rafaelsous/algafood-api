@@ -5,7 +5,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class Pedido {
 
     @CreationTimestamp
     @Column(nullable = false)
-    private LocalDateTime dataCriacao;
+    private OffsetDateTime dataCriacao;
 
     @Column(nullable = false)
     private BigDecimal subTotal;
@@ -30,11 +30,11 @@ public class Pedido {
     @Column(nullable = false)
     private BigDecimal valorTotal;
 
-    private LocalDateTime dataConfirmacao;
+    private OffsetDateTime dataConfirmacao;
 
-    private LocalDateTime dataCancelamento;
+    private OffsetDateTime dataCancelamento;
 
-    private LocalDateTime dataEntrega;
+    private OffsetDateTime dataEntrega;
 
     @OneToMany(mappedBy = "pedido")
     private List<ItemPedido> itens = new ArrayList<>();
