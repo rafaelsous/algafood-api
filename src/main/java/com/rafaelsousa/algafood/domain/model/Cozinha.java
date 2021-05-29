@@ -1,6 +1,5 @@
 package com.rafaelsousa.algafood.domain.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rafaelsousa.algafood.core.validation.Groups;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,7 +23,6 @@ public class Cozinha {
     @NotBlank
     private String nome;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "cozinha")
     private List<Restaurante> restaurantes = new ArrayList<>();
 

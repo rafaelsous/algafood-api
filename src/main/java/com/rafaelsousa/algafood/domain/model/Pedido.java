@@ -1,6 +1,5 @@
 package com.rafaelsousa.algafood.domain.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -52,7 +51,6 @@ public class Pedido {
     @JoinColumn(name = "usuario_cliente_id", nullable = false)
     private Usuario cliente;
 
-    @JsonIgnore
     @Embedded
     private Endereco enderecoEntrega;
 
