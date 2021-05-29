@@ -1,0 +1,7 @@
+{
+	"nome": "New York Buffer",
+	"taxaFrete": 15.99,
+	"cozinha": {
+		"id": 100
+	}
+}

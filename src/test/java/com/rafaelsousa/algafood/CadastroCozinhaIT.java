@@ -71,7 +71,7 @@ public class CadastroCozinhaIT {
     }
 
     @Test
-    public void testarCadastrarNovaCozinha() {
+    public void testarStatus201AoCadastrarNovaCozinha() {
         given()
                 .body(jsonCozinhaGaucha)
                 .contentType(ContentType.JSON)
