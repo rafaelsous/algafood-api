@@ -1,7 +1,5 @@
 package com.rafaelsousa.algafood.domain.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.rafaelsousa.algafood.core.validation.Groups;
 import com.rafaelsousa.algafood.core.validation.RestauranteTaxaZero;
 import lombok.Data;
@@ -46,36 +44,29 @@ public class Restaurante {
 
     private Boolean aberto;
 
-    @JsonIgnore
     @CreationTimestamp
     @Column(nullable = false, columnDefinition = "datetime")
     private LocalDateTime dataCadastro;
 
-    @JsonIgnore
     @UpdateTimestamp
     @Column(nullable = false, columnDefinition = "datetime")
     private LocalDateTime dataAtualizacao;
 
     @NotNull
     @ConvertGroup(to = Groups.CozinhaId.class)
-//    @JsonIgnore
-    @JsonIgnoreProperties(value = { "hibernateLazyInitializer", "nome" }, allowGetters = true)
     @ManyToOne //(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
     private @Valid Cozinha cozinha;
 
-    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "restaurante_forma_pagamento",
             joinColumns = @JoinColumn(name = "restaurante_id"),
             inverseJoinColumns = @JoinColumn(name = "forma_pagamento_id"))
     private List<FormaPagamento> formasPagamento;
 
-    @JsonIgnore
     @Embedded
     private Endereco endereco;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "restaurante")
     private List<Produto> produtos = new ArrayList<>();
 
