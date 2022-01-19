@@ -3,6 +3,7 @@ package com.rafaelsousa.algafood.api.controller;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rafaelsousa.algafood.core.validation.ValidationException;
+import com.rafaelsousa.algafood.domain.dto.response.RestauranteResponseDTO;
 import com.rafaelsousa.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.rafaelsousa.algafood.domain.exception.NegocioException;
 import com.rafaelsousa.algafood.domain.model.Restaurante;
@@ -47,8 +48,11 @@ public class RestauranteController {
     }
 
     @GetMapping("/{id}")
-    public Restaurante buscar(@PathVariable Long id) {
-        return cadastroRestaurante.buscarOuFalhar(id);
+    public RestauranteResponseDTO buscar(@PathVariable Long id) {
+        Restaurante restaurante = cadastroRestaurante.buscarOuFalhar(id);
+
+        RestauranteResponseDTO restauranteResponseDTO = null;
+        return restauranteResponseDTO;
     }
 
     @PostMapping
